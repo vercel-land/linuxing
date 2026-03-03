@@ -100,14 +100,14 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Docker Compose + MySQL + Drizzle ORM + seed data
 
-- [ ] Create `docker-compose.yml` with MySQL 8 service
-- [ ] Install Drizzle ORM + drizzle-kit + mysql2 driver (`bun add drizzle-orm mysql2` + `bun add -d drizzle-kit`)
-- [ ] Create `src/db/schema.ts` — define all tables (categories, distros, packages, commands, tags, package_tags)
-- [ ] Create `drizzle.config.ts` pointing to the Docker MySQL instance
-- [ ] Create `.env.local` with `DATABASE_URL=mysql://linuxing:linuxing@localhost:3306/linuxing`
-- [ ] Run `drizzle-kit push` to apply schema
-- [ ] Create `src/db/seed.ts` — seed ~5 categories, ~5 distros, ~10 packages, ~30 commands
-- [ ] Add bun scripts: `"db:push"`, `"db:seed"`, `"db:studio"`
+- [x] Create `docker-compose.yml` with MySQL 8 service
+- [x] Install Drizzle ORM + drizzle-kit + mysql2 driver (`bun add drizzle-orm mysql2` + `bun add -d drizzle-kit`)
+- [x] Create `drizzle.config.ts` pointing to the Docker MySQL instance
+- [x] Create `src/db/schema.ts` — define all tables (categories, distros, packages, commands, tags, package_tags)
+- [x] Create `.env.local` with `DATABASE_URL=mysql://linuxing:linuxing@localhost:3306/linuxing`
+- [x] Run `drizzle-kit push` to apply schema
+- [x] Create `src/db/seed.ts` — seed ~5 categories, ~5 distros, ~10 packages, ~30 commands
+- [x] Add bun scripts: `"db:push"`, `"db:seed"`, `"db:studio"`
 
 **Deliverable**: Database running, seeded, browsable via Drizzle Studio.
 
@@ -117,12 +117,12 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: DB connection singleton + homepage with categories grid
 
-- [ ] Create `src/db/index.ts` — Drizzle client singleton (using `mysql2` pool)
-- [ ] Create `src/app/page.tsx` — hero section ("Find the right command for your distro") + categories grid
-- [ ] Create `src/app/_components/category-card.tsx` — card with icon, name, package count
-- [ ] Fetch categories + package counts in Server Component (direct DB query, no API needed)
-- [ ] Style with shadcn Card component + Tailwind
-- [ ] Dark mode by default (set in layout)
+- [x] Create `src/db/index.ts` — Drizzle client singleton (using `mysql2` pool)
+- [x] Create `src/app/page.tsx` — hero section ("Find the right command for your distro") + categories grid
+- [x] Create `src/components/category-card.tsx` — card with icon, name, package count
+- [x] Fetch categories + package counts in Server Component (direct DB query, no API needed)
+- [x] Style with shadcn Card component + Tailwind
+- [x] Dark mode by default (set in layout)
 
 **Deliverable**: Homepage showing category cards with real data.
 
@@ -133,7 +133,7 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 **Goal**: `/category/[slug]` page showing packages in that category
 
 - [ ] Create `src/app/category/[slug]/page.tsx` — list packages for the category
-- [ ] Create `src/app/_components/package-card.tsx` — shows name, description, supported distro icons
+- [ ] Create `src/components/package-card.tsx` — shows name, description, supported distro icons
 - [ ] Add breadcrumbs (Home → Category name)
 - [ ] Add `generateStaticParams` for static generation of category pages
 - [ ] Handle not-found case with `notFound()`
@@ -148,8 +148,8 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 - [ ] Create `src/app/package/[slug]/page.tsx`
 - [ ] Fetch package + all commands grouped by distro
-- [ ] Create `src/app/_components/command-block.tsx` — styled code block with one-click copy button
-- [ ] Create `src/app/_components/distro-tabs.tsx` — tabs to switch between distros (show commands for selected distro)
+- [ ] Create `src/components/command-block.tsx` — styled code block with one-click copy button
+- [ ] Create `src/components/distro-tabs.tsx` — tabs to switch between distros (show commands for selected distro)
 - [ ] Show install + uninstall commands, notes, verified badge
 - [ ] Add metadata (title, description, og:image) for SEO
 
@@ -163,7 +163,7 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 - [ ] Add MySQL FULLTEXT index on `packages.name` and `packages.description`
 - [ ] Create `src/app/api/search/route.ts` — Route Handler that queries packages via FULLTEXT search
-- [ ] Create `src/app/_components/search-command.tsx` — use `cmdk` (already installed) for Cmd+K modal
+- [ ] Create `src/components/search-command.tsx` — use `cmdk` (already installed) for Cmd+K modal
 - [ ] Wire up debounced search → API → results list
 - [ ] Keyboard navigation: arrow keys to browse, Enter to go to package page
 - [ ] Add the search trigger button in the site header/nav
@@ -176,8 +176,8 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Site header, footer, responsive layout, metadata
 
-- [ ] Create `src/app/_components/site-header.tsx` — logo, nav links, search trigger, theme toggle
-- [ ] Create `src/app/_components/site-footer.tsx` — links, credits, GitHub link
+- [ ] Create `src/components/site-header.tsx` — logo, nav links, search trigger, theme toggle
+- [ ] Create `src/components/site-footer.tsx` — links, credits, GitHub link
 - [ ] Update `src/app/layout.tsx` — add header/footer, setup ThemeProvider (next-themes)
 - [ ] Add proper metadata in layout: title template, description, og defaults
 - [ ] Make everything responsive (mobile hamburger menu if needed)
@@ -298,6 +298,20 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 ---
 
+### Session 15 — Visual Polish & Microinteractions
+
+**Goal**: Make the UI feel premium, smooth, and delightful to use
+
+- [ ] Unify spacing, border radius, and typography scales across all pages
+- [ ] Add subtle gradients, glows, and textured backgrounds to key sections (hero, grids, headers)
+- [ ] Introduce tasteful hover and focus states using shadcn/ui variants and Tailwind transitions
+- [ ] Add microinteractions: card lifts, icon motion, button press feedback, and skeleton/loading states
+- [ ] Review dark-mode contrast and accessibility (focus rings, readable muted text, etc.)
+
+**Deliverable**: Visually cohesive, “wow”-level UI that still feels fast and unobtrusive.
+
+---
+
 ### Future Sessions (Ideas Backlog)
 
 - **User accounts**: sign up, bookmark packages, submit new entries
@@ -340,14 +354,6 @@ src/
 ├── app/
 │   ├── layout.tsx              # Root layout (header, footer, theme)
 │   ├── page.tsx                # Homepage (hero + categories)
-│   ├── _components/            # Shared components (private folder)
-│   │   ├── site-header.tsx
-│   │   ├── site-footer.tsx
-│   │   ├── search-command.tsx
-│   │   ├── category-card.tsx
-│   │   ├── package-card.tsx
-│   │   ├── command-block.tsx
-│   │   └── distro-tabs.tsx
 │   ├── category/
 │   │   └── [slug]/
 │   │       └── page.tsx        # Packages in category
@@ -381,7 +387,14 @@ src/
 │   ├── schema.ts               # Table definitions
 │   └── seed.ts                 # Seed script
 ├── components/
-│   └── ui/                     # shadcn components (already here)
+│   ├── ui/                     # shadcn components (already here)
+│   ├── site-header.tsx
+│   ├── site-footer.tsx
+│   ├── search-command.tsx
+│   ├── category-card.tsx
+│   ├── package-card.tsx
+│   ├── command-block.tsx
+│   └── distro-tabs.tsx
 ├── hooks/
 │   └── use-mobile.ts
 └── lib/
