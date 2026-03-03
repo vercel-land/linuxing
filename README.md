@@ -1,10 +1,10 @@
-# 🐧 Linuxing
+# 🐧 Rosetta
 
 > **A modern Linux command & package discovery platform.**
 > People switching to Linux shouldn't have to dig through outdated forums. 
 > Search what you need → pick your distro → copy the command. Done.
 
-Linuxing is a clean, fast, community-driven platform designed to help users find the right commands for their specific Linux distribution. Whether you're a newcomer or a power user, Linuxing provides a "copy-first" experience to get your tools installed and configured without the fluff.
+Rosetta is a clean, fast, community-driven platform designed to help users find the right commands for their specific Linux distribution. Whether you're a newcomer or a power user, Rosetta provides a "copy-first" experience to get your tools installed and configured without the fluff.
 
 ---
 
@@ -41,8 +41,8 @@ Linuxing is a clean, fast, community-driven platform designed to help users find
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/linuxing.git
-   cd linuxing
+   git clone https://github.com/your-username/rosetta.git
+   cd rosetta
    ```
 
 2. **Start the database**:

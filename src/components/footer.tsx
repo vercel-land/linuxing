@@ -11,7 +11,7 @@ export function Footer() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <Terminal className="h-5 w-5" />
               </div>
-              <span className="text-xl font-bold tracking-tight">Linuxing</span>
+              <span className="text-xl font-bold tracking-tight">Rosetta</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               A modern platform for discovering Linux commands and packages
@@ -116,7 +116,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Linuxing. All rights reserved.
+            © {new Date().getFullYear()} Rosetta. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
             Built with <Heart className="h-3 w-3 fill-primary text-primary" />{" "}

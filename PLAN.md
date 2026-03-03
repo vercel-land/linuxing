@@ -1,4 +1,4 @@
-# Linuxing — Build-in-Public Plan
+# Rosetta — Build-in-Public Plan
 
 > A modern Linux command & package discovery platform.
 > People switching to Linux shouldn't have to dig through outdated forums.
@@ -21,7 +21,7 @@ A clean, fast, community-driven website (+ future TUI) where users can:
 - **Distro-aware**: every entry shows commands per distro/package manager side-by-side
 - **Copy-first UX**: giant copy buttons, minimal prose, zero fluff
 - **Modern stack**: fast, dark-mode-first, keyboard-navigable (Cmd+K search)
-- **TUI companion** (later): `npx linuxing search node` from your terminal
+- **TUI companion** (later): `npx rosetta search node` from your terminal
 
 ---
 
@@ -104,7 +104,7 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 - [x] Install Drizzle ORM + drizzle-kit + mysql2 driver (`bun add drizzle-orm mysql2` + `bun add -d drizzle-kit`)
 - [x] Create `drizzle.config.ts` pointing to the Docker MySQL instance
 - [x] Create `src/db/schema.ts` — define all tables (categories, distros, packages, commands, tags, package_tags)
-- [x] Create `.env.local` with `DATABASE_URL=mysql://linuxing:linuxing@localhost:3306/linuxing`
+- [x] Create `.env.local` with `DATABASE_URL=mysql://rosetta:rosetta@localhost:3306/rosetta`
 - [x] Run `drizzle-kit push` to apply schema
 - [x] Create `src/db/seed.ts` — seed ~5 categories, ~5 distros, ~10 packages, ~30 commands
 - [x] Add bun scripts: `"db:push"`, `"db:seed"`, `"db:studio"`
@@ -132,8 +132,8 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: `/category/[slug]` page showing packages in that category
 
-- [ ] Create `src/app/category/[slug]/page.tsx` — list packages for the category
-- [ ] Create `src/components/package-card.tsx` — shows name, description, supported distro icons
+- [x] Create `src/app/category/[slug]/page.tsx` — list packages for the category
+- [x] Create `src/components/package-card.tsx` — shows name, description, supported distro icons
 - [ ] Add breadcrumbs (Home → Category name)
 - [ ] Add `generateStaticParams` for static generation of category pages
 - [ ] Handle not-found case with `notFound()`
@@ -146,7 +146,7 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: `/package/[slug]` — the money page with copy-paste commands
 
-- [ ] Create `src/app/package/[slug]/page.tsx`
+- [x] Create `src/app/package/[slug]/page.tsx`
 - [ ] Fetch package + all commands grouped by distro
 - [ ] Create `src/components/command-block.tsx` — styled code block with one-click copy button
 - [ ] Create `src/components/distro-tabs.tsx` — tabs to switch between distros (show commands for selected distro)
@@ -285,16 +285,16 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 ### Session 14 — TUI Companion (MVP)
 
-**Goal**: CLI tool that queries the Linuxing API
+**Goal**: CLI tool that queries the Rosetta API
 
 - [ ] Create `packages/cli/` workspace
-- [ ] `linuxing search <query>` — search packages, show results in a nice table
-- [ ] `linuxing install <package> --distro arch` — show the install command (and optionally pipe to shell)
-- [ ] `linuxing browse` — interactive TUI with category browsing
+- [ ] `rosetta search <query>` — search packages, show results in a nice table
+- [ ] `rosetta install <package> --distro arch` — show the install command (and optionally pipe to shell)
+- [ ] `rosetta browse` — interactive TUI with category browsing
 - [ ] Use Ink (React for CLIs) or a lightweight approach with `prompts` + `chalk`
-- [ ] Publish to npm: `npx linuxing`
+- [ ] Publish to npm: `npx rosetta`
 
-**Deliverable**: Working CLI that queries the Linuxing platform.
+**Deliverable**: Working CLI that queries the Rosetta platform.
 
 ---
 

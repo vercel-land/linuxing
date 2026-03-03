@@ -1,13 +1,13 @@
 services:
   mysql:
     image: mysql:8
-    container_name: linuxing-mysql
+    container_name: rosetta-mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: linuxing
-      MYSQL_USER: linuxing
-      MYSQL_PASSWORD: linuxing
+      MYSQL_DATABASE: rosetta
+      MYSQL_USER: rosetta
+      MYSQL_PASSWORD: rosetta
     ports:
       - "3306:3306"
     volumes:
@@ -20,7 +20,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: linuxing-phpmyadmin
+    container_name: rosetta-phpmyadmin
     restart: unless-stopped
     environment:
       PMA_HOST: mysql

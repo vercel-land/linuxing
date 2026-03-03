@@ -184,7 +184,7 @@ export default async function Home() {
             Community Driven
           </h2>
           <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
-            Linuxing is built by enthusiasts for the community. All commands are
+            Rosetta is built by enthusiasts for the community. All commands are
             verified by contributors to ensure they work on the latest releases.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
