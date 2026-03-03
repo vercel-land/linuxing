@@ -162,11 +162,11 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 **Goal**: Command palette search across all packages
 
 - [ ] Add MySQL FULLTEXT index on `packages.name` and `packages.description`
-- [ ] Create `src/app/api/search/route.ts` — Route Handler that queries packages via FULLTEXT search
-- [ ] Create `src/components/search-command.tsx` — use `cmdk` (already installed) for Cmd+K modal
-- [ ] Wire up debounced search → API → results list
-- [ ] Keyboard navigation: arrow keys to browse, Enter to go to package page
-- [ ] Add the search trigger button in the site header/nav
+- [x] Create `src/app/api/search/route.ts` — Route Handler that queries packages
+- [x] Create `src/components/search-modal.tsx` — use `cmdk` for Cmd+K modal
+- [x] Wire up search → API → results list
+- [x] Keyboard navigation: arrow keys to browse, Enter to go to package page
+- [x] Add the search trigger button in the site header/nav
 
 **Deliverable**: Press Cmd+K anywhere → search packages → jump to result.
 
