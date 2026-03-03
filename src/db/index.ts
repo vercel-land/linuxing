@@ -4,9 +4,9 @@ import * as schema from "./schema";
 
 const connection = await mysql.createPool({
   host: "localhost",
-  user: "linuxing",
-  password: "linuxing",
-  database: "linuxing",
+  user: "rosetta",
+  password: "rosetta",
+  database: "rosetta",
 });
 
 export const db = drizzle(connection, { schema, mode: "default" });

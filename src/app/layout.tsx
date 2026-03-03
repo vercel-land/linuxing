@@ -10,7 +10,7 @@ const Operator_Mono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Linuxing - Find Linux Commands",
+  title: "Rosetta - Find Linux Commands",
   description:
     "Search for any tool, pick your Linux distribution, and copy the install command.",
 };

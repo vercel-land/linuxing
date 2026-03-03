@@ -16,7 +16,7 @@ export function Navbar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Terminal className="h-5 w-5" />
           </div>
-          <span className="text-xl font-bold tracking-tight">Linuxing</span>
+          <span className="text-xl font-bold tracking-tight">Rosetta</span>
         </Link>
 
         <div className="flex flex-1 items-center justify-end gap-4 md:gap-8">

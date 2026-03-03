@@ -7,6 +7,6 @@ export default defineConfig({
   dbCredentials: {
     url:
       process.env.DATABASE_URL ||
-      "mysql://linuxing:linuxing@localhost:3306/linuxing",
+      "mysql://rosetta:rosetta@localhost:3306/rosetta",
   },
 });
