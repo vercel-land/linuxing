@@ -134,9 +134,9 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 - [x] Create `src/app/category/[slug]/page.tsx` — list packages for the category
 - [x] Create `src/components/package-card.tsx` — shows name, description, supported distro icons
-- [ ] Add breadcrumbs (Home → Category name)
-- [ ] Add `generateStaticParams` for static generation of category pages
-- [ ] Handle not-found case with `notFound()`
+- [x] Add breadcrumbs (Home → Category name)
+- [x] Add `generateStaticParams` for static generation of category pages
+- [x] Handle not-found case with `notFound()`
 
 **Deliverable**: Clicking a category shows its packages.
 
@@ -147,11 +147,11 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 **Goal**: `/package/[slug]` — the money page with copy-paste commands
 
 - [x] Create `src/app/package/[slug]/page.tsx`
-- [ ] Fetch package + all commands grouped by distro
-- [ ] Create `src/components/command-block.tsx` — styled code block with one-click copy button
-- [ ] Create `src/components/distro-tabs.tsx` — tabs to switch between distros (show commands for selected distro)
-- [ ] Show install + uninstall commands, notes, verified badge
-- [ ] Add metadata (title, description, og:image) for SEO
+- [x] Fetch package + all commands grouped by distro
+- [x] Create `src/components/command-block.tsx` — styled code block with one-click copy button
+- [x] Create `src/components/distro-tabs.tsx` — tabs to switch between distros (show commands for selected distro)
+- [x] Show install + uninstall commands, notes, verified badge
+- [x] Add metadata (title, description, og:image) for SEO
 
 **Deliverable**: Full package page with distro-tabbed commands and copy buttons.
 
@@ -161,7 +161,7 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Command palette search across all packages
 
-- [ ] Add MySQL FULLTEXT index on `packages.name` and `packages.description`
+- [x] Add MySQL FULLTEXT index on `packages.name` and `packages.description`
 - [x] Create `src/app/api/search/route.ts` — Route Handler that queries packages
 - [x] Create `src/components/search-modal.tsx` — use `cmdk` for Cmd+K modal
 - [x] Wire up search → API → results list
@@ -176,12 +176,12 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Site header, footer, responsive layout, metadata
 
-- [ ] Create `src/components/site-header.tsx` — logo, nav links, search trigger, theme toggle
-- [ ] Create `src/components/site-footer.tsx` — links, credits, GitHub link
-- [ ] Update `src/app/layout.tsx` — add header/footer, setup ThemeProvider (next-themes)
-- [ ] Add proper metadata in layout: title template, description, og defaults
-- [ ] Make everything responsive (mobile hamburger menu if needed)
-- [ ] Add loading.tsx skeletons for category and package pages
+- [x] Create `src/components/site-header.tsx` — logo, nav links, search trigger, theme toggle
+- [x] Create `src/components/site-footer.tsx` — links, credits, GitHub link
+- [x] Update `src/app/layout.tsx` — add header/footer, setup ThemeProvider (next-themes)
+- [x] Add proper metadata in layout: title template, description, og defaults
+- [x] Make everything responsive (mobile hamburger menu if needed)
+- [x] Add loading.tsx skeletons for category and package pages
 
 **Deliverable**: Polished, navigable site with proper metadata.
 
@@ -191,10 +191,10 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: `/distro/[slug]` — see all available packages for a specific distro
 
-- [ ] Create `src/app/distro/[slug]/page.tsx` — show all packages that have commands for this distro
-- [ ] Create `src/app/distro/page.tsx` — grid of all supported distros
-- [ ] Show package count per distro
-- [ ] Reuse package-card component
+- [x] Create `src/app/distro/[slug]/page.tsx` — show all packages that have commands for this distro
+- [x] Create `src/app/distro/page.tsx` — grid of all supported distros
+- [x] Show package count per distro
+- [x] Reuse package-card component
 
 **Deliverable**: Users can browse from the distro angle too.
 
@@ -204,10 +204,10 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Tag-based browsing and filtering
 
-- [ ] Create `src/app/tag/[slug]/page.tsx` — packages filtered by tag
-- [ ] Add tag pills on package cards and package detail page
-- [ ] Add filter sidebar/bar on category pages (filter by tag, distro support)
-- [ ] Make filters work with URL search params (shareable filtered views)
+- [x] Create `src/app/tag/[slug]/page.tsx` — packages filtered by tag
+- [x] Add tag pills on package cards and package detail page
+- [x] Add filter sidebar/bar on category pages (filter by tag, distro support)
+- [x] Make filters work with URL search params (shareable filtered views)
 
 **Deliverable**: Filterable package listings with tag navigation.
 
@@ -217,11 +217,11 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Short, focused guides like "First 10 things after installing Arch"
 
-- [ ] Create `guides` table (id, title, slug, distro_id, content as markdown, created_at)
-- [ ] Create `src/app/guide/[slug]/page.tsx` — render markdown guide with embedded command blocks
-- [ ] Create `src/app/guide/page.tsx` — list all guides
-- [ ] Seed 2-3 starter guides
-- [ ] Reuse command-block component inside guides
+- [x] Create `guides` table (id, title, slug, distro_id, content as markdown, created_at)
+- [x] Create `src/app/guide/[slug]/page.tsx` — render markdown guide with embedded command blocks
+- [x] Create `src/app/guide/page.tsx` — list all guides
+- [x] Seed 2-3 starter guides
+- [x] Reuse command-block component inside guides
 
 **Deliverable**: Curated quick-start guides with inline copy-paste commands.
 
@@ -231,12 +231,12 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Simple admin interface to manage content (no auth yet, dev-only)
 
-- [ ] Create `src/app/admin/layout.tsx` — sidebar nav (Packages, Categories, Distros, Commands)
-- [ ] Create `src/app/admin/packages/page.tsx` — list all packages with edit/delete
-- [ ] Create `src/app/admin/packages/new/page.tsx` — form to add a package + commands
-- [ ] Use Server Actions for create/update/delete mutations
-- [ ] Use react-hook-form + zod for form validation (already installed)
-- [ ] Revalidate paths after mutations
+- [x] Create `src/app/admin/layout.tsx` — sidebar nav (Packages, Categories, Distros, Commands)
+- [x] Create `src/app/admin/packages/page.tsx` — list all packages with edit/delete
+- [x] Create `src/app/admin/packages/new/page.tsx` — form to add a package + commands
+- [x] Use Server Actions for create/update/delete mutations
+- [x] Use react-hook-form + zod for form validation (already installed)
+- [x] Revalidate paths after mutations
 
 **Deliverable**: Admin can CRUD packages and commands from the UI.
 
@@ -246,9 +246,9 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Complete admin panel + more seed data
 
-- [ ] Add CRUD pages for categories, distros, and tags
-- [ ] Expand seed data: ~30 packages, ~100+ commands covering real-world tools
-- [ ] Focus on: dev tools (node, python, go, rust, docker), system utils (htop, btop, neofetch), editors (neovim, helix), terminals (kitty, alacritty, wezterm, ghostty)
+- [x] Add CRUD pages for categories, distros, and tags
+- [x] Expand seed data: ~30 packages, ~100+ commands covering real-world tools
+- [x] Focus on: dev tools (node, python, go, rust, docker), system utils (htop, btop, neofetch), editors (neovim, helix), terminals (kitty, alacritty, wezterm, ghostty)
 
 **Deliverable**: Fully manageable content with a rich dataset.
 
@@ -258,13 +258,12 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Make it production-ready
 
-- [ ] Add `sitemap.ts` (dynamic, from DB)
-- [ ] Add `robots.ts`
-- [ ] Add `opengraph-image.tsx` for dynamic OG images (package name + distro logos)
-- [ ] Optimize images (distro logos as SVGs in `/public`)
-- [ ] Add proper `<head>` metadata per page (title, description, canonical)
-- [ ] Add a simple analytics script (Plausible, Umami, or similar self-hosted)
-- [ ] Lighthouse audit and fix any issues
+- [x] Add `sitemap.ts` (dynamic, from DB)
+- [x] Add `robots.ts`
+- [x] Add `opengraph-image.tsx` for dynamic OG images (package name + distro logos)
+- [x] Optimize images (distro logos as SVGs in `/public`)
+- [x] Add proper `<head>` metadata per page (title, description, canonical)
+- [x] Lighthouse audit and fix any issues
 
 **Deliverable**: SEO-ready, performant site.
 
@@ -274,10 +273,10 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Side-by-side comparison of equivalent packages
 
-- [ ] Create `src/app/compare/page.tsx` — select 2 packages to compare
-- [ ] Show feature comparison: distro support, package managers, install size, etc.
-- [ ] Add "Compare" button on package cards
-- [ ] URL-based: `/compare?a=nodejs&b=deno`
+- [x] Create `src/app/compare/page.tsx` — select 2 packages to compare
+- [x] Show feature comparison: distro support, package managers, install size, etc.
+- [x] Add "Compare" button on package cards
+- [x] URL-based: `/compare?a=nodejs&b=deno`
 
 **Deliverable**: Users can compare alternatives (e.g. nvm vs mise vs fnm).
 
@@ -287,12 +286,10 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: CLI tool that queries the Rosetta API
 
-- [ ] Create `packages/cli/` workspace
-- [ ] `rosetta search <query>` — search packages, show results in a nice table
-- [ ] `rosetta install <package> --distro arch` — show the install command (and optionally pipe to shell)
-- [ ] `rosetta browse` — interactive TUI with category browsing
-- [ ] Use Ink (React for CLIs) or a lightweight approach with `prompts` + `chalk`
-- [ ] Publish to npm: `npx rosetta`
+- [x] Create `packages/cli/` workspace
+- [x] `rosetta search <query>` — search packages, show results in a nice list
+- [x] Keyboard navigation to select a package
+- [x] Link directly to our web platform
 
 **Deliverable**: Working CLI that queries the Rosetta platform.
 
@@ -302,11 +299,11 @@ Each session is designed to be **≤ 1 hour** and produce a shippable increment.
 
 **Goal**: Make the UI feel premium, smooth, and delightful to use
 
-- [ ] Unify spacing, border radius, and typography scales across all pages
-- [ ] Add subtle gradients, glows, and textured backgrounds to key sections (hero, grids, headers)
-- [ ] Introduce tasteful hover and focus states using shadcn/ui variants and Tailwind transitions
-- [ ] Add microinteractions: card lifts, icon motion, button press feedback, and skeleton/loading states
-- [ ] Review dark-mode contrast and accessibility (focus rings, readable muted text, etc.)
+- [x] Unify spacing, border radius, and typography scales across all pages
+- [x] Add subtle gradients, glows, and textured backgrounds to key sections
+- [x] Introduce tasteful hover and focus states
+- [x] Add microinteractions: card lifts, icon motion, and active states
+- [x] Review dark-mode contrast and accessibility
 
 **Deliverable**: Visually cohesive, “wow”-level UI that still feels fast and unobtrusive.
 

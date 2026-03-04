@@ -6,12 +6,14 @@ import {
   packages,
   packageTags,
   tags,
+  guides,
 } from "./schema";
 
 const seedData = async () => {
   console.log("Seeding database...");
 
   // Clear existing data
+  await db.delete(guides).execute();
   await db.delete(packageTags).execute();
   await db.delete(commands).execute();
   await db.delete(packages).execute();
@@ -154,6 +156,34 @@ const seedData = async () => {
       description: "Resource monitor that shows usage and stats",
       homepageUrl: "https://github.com/aristocratos/btop",
       categoryId: insertedCategories[1].id,
+    },
+    {
+      name: "Docker",
+      slug: "docker",
+      description: "Platform for developing, shipping, and running applications in containers",
+      homepageUrl: "https://www.docker.com",
+      categoryId: insertedCategories[0].id,
+    },
+    {
+      name: "Neofetch",
+      slug: "neofetch",
+      description: "Command-line system information tool",
+      homepageUrl: "https://github.com/dylanaraps/neofetch",
+      categoryId: insertedCategories[1].id,
+    },
+    {
+      name: "Visual Studio Code",
+      slug: "vscode",
+      description: "Powerful code editor redefined and optimized for building and debugging modern web and cloud applications",
+      homepageUrl: "https://code.visualstudio.com",
+      categoryId: insertedCategories[2].id,
+    },
+    {
+      name: "VLC Media Player",
+      slug: "vlc",
+      description: "Free and open source cross-platform multimedia player and framework",
+      homepageUrl: "https://www.videolan.org/vlc/",
+      categoryId: insertedCategories[4].id,
     },
   ];
 
@@ -402,6 +432,74 @@ const seedData = async () => {
       notes: "Available in Ubuntu 22.10+",
       verified: true,
     },
+    // Docker commands
+    {
+      packageId: findPackage("docker").id,
+      distroId: findDistro("arch").id,
+      packageManager: "pacman",
+      installCommand: "sudo pacman -S docker",
+      uninstallCommand: "sudo pacman -R docker",
+      verified: true,
+    },
+    {
+      packageId: findPackage("docker").id,
+      distroId: findDistro("ubuntu").id,
+      packageManager: "apt",
+      installCommand: "sudo apt install docker.io",
+      uninstallCommand: "sudo apt remove docker.io",
+      verified: true,
+    },
+    // Neofetch
+    {
+      packageId: findPackage("neofetch").id,
+      distroId: findDistro("arch").id,
+      packageManager: "pacman",
+      installCommand: "sudo pacman -S neofetch",
+      uninstallCommand: "sudo pacman -R neofetch",
+      verified: true,
+    },
+    {
+      packageId: findPackage("neofetch").id,
+      distroId: findDistro("ubuntu").id,
+      packageManager: "apt",
+      installCommand: "sudo apt install neofetch",
+      uninstallCommand: "sudo apt remove neofetch",
+      verified: true,
+    },
+    // VS Code
+    {
+      packageId: findPackage("vscode").id,
+      distroId: findDistro("arch").id,
+      packageManager: "pacman",
+      installCommand: "sudo pacman -S code",
+      uninstallCommand: "sudo pacman -R code",
+      verified: true,
+    },
+    {
+      packageId: findPackage("vscode").id,
+      distroId: findDistro("fedora").id,
+      packageManager: "dnf",
+      installCommand: "sudo dnf install code",
+      uninstallCommand: "sudo dnf remove code",
+      verified: true,
+    },
+    // VLC
+    {
+      packageId: findPackage("vlc").id,
+      distroId: findDistro("arch").id,
+      packageManager: "pacman",
+      installCommand: "sudo pacman -S vlc",
+      uninstallCommand: "sudo pacman -R vlc",
+      verified: true,
+    },
+    {
+      packageId: findPackage("vlc").id,
+      distroId: findDistro("ubuntu").id,
+      packageManager: "apt",
+      installCommand: "sudo apt install vlc",
+      uninstallCommand: "sudo apt remove vlc",
+      verified: true,
+    },
   ];
 
   await db.insert(commands).values(commandData).execute();
@@ -425,12 +523,87 @@ const seedData = async () => {
     { packageId: findPackage("htop").id, tagId: findTag("tool").id },
     { packageId: findPackage("btop").id, tagId: findTag("cli").id },
     { packageId: findPackage("btop").id, tagId: findTag("tool").id },
+    { packageId: findPackage("docker").id, tagId: findTag("tool").id },
+    { packageId: findPackage("neofetch").id, tagId: findTag("cli").id },
+    { packageId: findPackage("neofetch").id, tagId: findTag("tool").id },
+    { packageId: findPackage("vscode").id, tagId: findTag("gui").id },
+    { packageId: findPackage("vlc").id, tagId: findTag("gui").id },
+    { packageId: findPackage("vlc").id, tagId: findTag("tool").id },
   ];
 
   await db.insert(packageTags).values(packageTagData).execute();
   console.log(`Inserted ${packageTagData.length} package tags`);
 
+  // Insert guides
+  const guideData = [
+    {
+      title: "Essential Post-Install for Arch Linux",
+      slug: "arch-post-install",
+      distroId: findDistro("arch").id,
+      content: `
+# Arch Linux Post-Install Guide
+
+Welcome to the world of Arch! Here are the first things you should do after a fresh installation.
+
+## 1. Update the System
+Always start with a full system upgrade.
+\`\`\`bash
+sudo pacman -Syu
+\`\`\`
+
+## 2. Install a Helper (Paru)
+Arch is better with the AUR. Paru is a great helper written in Rust.
+\`\`\`bash
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+\`\`\`
+
+## 3. Essential Tools
+Install some basic utilities for daily use.
+\`\`\`bash
+sudo pacman -S htop btop neovim kitty
+\`\`\`
+      `,
+    },
+    {
+      title: "Get Started with Ubuntu for Development",
+      slug: "ubuntu-dev-setup",
+      distroId: findDistro("ubuntu").id,
+      content: `
+# Ubuntu Development Setup
+
+Ubuntu is a solid choice for developers. Let's get your environment ready.
+
+## 1. Update Repositories
+\`\`\`bash
+sudo apt update && sudo apt upgrade
+\`\`\`
+
+## 2. Install Build Essentials
+This includes gcc, g++, and make.
+\`\`\`bash
+sudo apt install build-essential
+\`\`\`
+
+## 3. Development Runtimes
+Install Node.js and Python to get started.
+\`\`\`bash
+sudo apt install nodejs npm python3 python3-pip
+\`\`\`
+      `,
+    },
+  ];
+
+  await db.insert(guides).values(guideData).execute();
+  console.log(`Inserted ${guideData.length} guides`);
+
   console.log("Seeding complete!");
+  process.exit(0);
 };
 
-seedData().catch(console.error);
+seedData().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

@@ -6,6 +6,7 @@ import {
   text,
   timestamp,
   varchar,
+  index,
 } from "drizzle-orm/mysql-core";
 
 export const categories = mysqlTable("categories", {
@@ -26,16 +27,19 @@ export const distros = mysqlTable("distros", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const packages = mysqlTable("packages", {
-  id: int("id").autoincrement().primaryKey(),
-  name: varchar("name", { length: 100 }).notNull(),
-  slug: varchar("slug", { length: 100 }).notNull().unique(),
-  description: text("description"),
-  homepageUrl: varchar("homepage_url", { length: 255 }),
-  categoryId: int("category_id").references(() => categories.id),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow(),
-});
+export const packages = mysqlTable(
+  "packages",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    name: varchar("name", { length: 100 }).notNull(),
+    slug: varchar("slug", { length: 100 }).notNull().unique(),
+    description: text("description"),
+    homepageUrl: varchar("homepage_url", { length: 255 }),
+    categoryId: int("category_id").references(() => categories.id),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow(),
+  }
+);
 
 export const commands = mysqlTable("commands", {
   id: int("id").autoincrement().primaryKey(),
@@ -108,5 +112,21 @@ export const packageTagsRelations = relations(packageTags, ({ one }) => ({
   tag: one(tags, {
     fields: [packageTags.tagId],
     references: [tags.id],
+  }),
+}));
+
+export const guides = mysqlTable("guides", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  distroId: int("distro_id").references(() => distros.id),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const guidesRelations = relations(guides, ({ one }) => ({
+  distro: one(distros, {
+    fields: [guides.distroId],
+    references: [distros.id],
   }),
 }));

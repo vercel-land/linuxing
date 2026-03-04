@@ -1,9 +1,10 @@
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { db } from "@/db";
-import { categories, commands, distros, packages } from "@/db/schema";
-import { CopyButton } from "./copy-button";
+import { categories, commands, distros, packages, packageTags, tags } from "@/db/schema";
+import { DistroTabs } from "@/components/distro-tabs";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -43,7 +44,30 @@ async function getPackageWithCommands(slug: string) {
     .innerJoin(distros, eq(commands.distroId, distros.id))
     .where(eq(commands.packageId, pkg.id));
 
-  return { pkg, category, commands: packageCommands };
+  const packageTagsList = await db
+    .select({ name: tags.name })
+    .from(tags)
+    .innerJoin(packageTags, eq(tags.id, packageTags.tagId))
+    .where(eq(packageTags.packageId, pkg.id));
+
+  return { pkg, category, commands: packageCommands, tags: packageTagsList.map(t => t.name) };
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getPackageWithCommands(slug);
+  
+  if (!data) return {};
+
+  const { pkg } = data;
+  return {
+    title: `${pkg.name} | Rosetta`,
+    description: pkg.description || `Install ${pkg.name} on your Linux distro with one command.`,
+    openGraph: {
+      title: `${pkg.name} | Rosetta`,
+      description: pkg.description || `Install ${pkg.name} on your Linux distro with one command.`,
+    },
+  };
 }
 
 export async function generateStaticParams() {
@@ -59,7 +83,7 @@ export default async function PackagePage({ params }: PageProps) {
     notFound();
   }
 
-  const { pkg, category, commands: packageCommands } = data;
+  const { pkg, category, commands: packageCommands, tags: packageTagsList } = data;
 
   const commandsByDistro = packageCommands.reduce(
     (acc, cmd) => {
@@ -79,9 +103,9 @@ export default async function PackagePage({ params }: PageProps) {
   );
 
   return (
-    <div className="container mx-auto min-h-screen px-4 py-8">
-      <nav className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-        <Link href="/" className="hover:text-foreground">
+    <div className="container mx-auto min-h-screen px-4 py-8 max-w-5xl">
+      <nav className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
+        <Link href="/" className="hover:text-foreground transition-colors">
           Home
         </Link>
         <span>/</span>
@@ -89,98 +113,65 @@ export default async function PackagePage({ params }: PageProps) {
           <>
             <Link
               href={`/category/${category.slug}`}
-              className="hover:text-foreground"
+              className="hover:text-foreground transition-colors"
             >
               {category.name}
             </Link>
             <span>/</span>
           </>
         )}
-        <span className="text-foreground">{pkg.name}</span>
+        <span className="text-foreground font-medium">{pkg.name}</span>
       </nav>
 
-      <header className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold">{pkg.name}</h1>
-        {pkg.description && (
-          <p className="text-muted-foreground">{pkg.description}</p>
-        )}
-        {pkg.homepageUrl && (
-          <a
-            href={pkg.homepageUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 inline-block text-sm text-primary hover:underline"
-          >
-            Official Website
-          </a>
-        )}
-      </header>
-
-      {Object.keys(commandsByDistro).length === 0 ? (
-        <p className="text-muted-foreground">
-          No install commands available yet.
-        </p>
-      ) : (
-        <div className="space-y-8">
-          {Object.entries(commandsByDistro).map(
-            ([distroSlug, { distroName, commands: cmds }]) => (
-              <div
-                key={distroSlug}
-                className="rounded-xl border border-border bg-card"
+      <header className="mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {packageTagsList.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/tag/${tag}`}
+                  className="rounded-full bg-primary/5 px-3 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary/10"
+                >
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+            <h1 className="text-5xl font-extrabold tracking-tight lg:text-6xl">
+              {pkg.name}
+            </h1>
+            {pkg.description && (
+              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                {pkg.description}
+              </p>
+            )}
+          </div>
+          {pkg.homepageUrl && (
+            <div className="shrink-0 pb-1">
+              <a
+                href={pkg.homepageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center justify-center rounded-full bg-primary/10 px-6 py-2 text-sm font-semibold text-primary transition-all hover:bg-primary/20 hover:scale-105 active:scale-95"
               >
-                <div className="border-b border-border px-6 py-4">
-                  <h2 className="text-lg font-semibold">{distroName}</h2>
-                </div>
-                <div className="divide-y divide-border">
-                  {cmds.map((cmd) => (
-                    <div key={cmd.id} className="px-6 py-4">
-                      <div className="mb-2 flex items-center justify-between">
-                        <span className="font-medium">
-                          {cmd.packageManager}
-                        </span>
-                        {cmd.verified && (
-                          <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-xs text-green-500">
-                            Verified
-                          </span>
-                        )}
-                      </div>
-                      <div className="mb-2">
-                        <p className="mb-1 text-xs text-muted-foreground">
-                          Install
-                        </p>
-                        <div className="flex items-center gap-2">
-                          <code className="flex-1 rounded bg-muted px-3 py-2 text-sm">
-                            {cmd.installCommand}
-                          </code>
-                          <CopyButton text={cmd.installCommand} />
-                        </div>
-                      </div>
-                      {cmd.uninstallCommand && (
-                        <div>
-                          <p className="mb-1 text-xs text-muted-foreground">
-                            Uninstall
-                          </p>
-                          <div className="flex items-center gap-2">
-                            <code className="flex-1 rounded bg-muted px-3 py-2 text-sm">
-                              {cmd.uninstallCommand}
-                            </code>
-                            <CopyButton text={cmd.uninstallCommand} />
-                          </div>
-                        </div>
-                      )}
-                      {cmd.notes && (
-                        <p className="mt-2 text-xs text-muted-foreground">
-                          {cmd.notes}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ),
+                Official Website
+              </a>
+            </div>
           )}
         </div>
-      )}
+      </header>
+
+      <div className="mt-12">
+        {Object.keys(commandsByDistro).length === 0 ? (
+          <div className="rounded-2xl border-2 border-dashed border-border p-12 text-center">
+            <p className="text-lg text-muted-foreground font-medium">
+              No install commands available yet for this package.
+            </p>
+          </div>
+        ) : (
+          <DistroTabs commandsByDistro={commandsByDistro} />
+        )}
+      </div>
     </div>
   );
 }
