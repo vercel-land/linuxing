@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@/components/analytics";
 
 const Operator_Mono = localFont({
   src: "./../../public/OperatorMonoLig-Book.otf",
@@ -43,6 +44,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Analytics />
           <SiteHeader />
           <main className="flex-1 overflow-x-hidden">{children}</main>
           <SiteFooter />

@@ -18,6 +18,8 @@ async function getGuide(slug: string) {
       title: guides.title,
       slug: guides.slug,
       content: guides.content,
+      seoTitle: guides.seoTitle,
+      seoDescription: guides.seoDescription,
       distroName: distros.name,
     })
     .from(guides)
@@ -32,8 +34,8 @@ export async function generateMetadata({ params }: PageProps) {
   if (!guide) return {};
 
   return {
-    title: `${guide.title} | Rosetta Guides`,
-    description: `Step-by-step Linux guide: ${guide.title}`,
+    title: guide.seoTitle || `${guide.title} | Rosetta Guides`,
+    description: guide.seoDescription || `Step-by-step Linux guide: ${guide.title}`,
   };
 }
 

@@ -1,0 +1,33 @@
+# Rosetta — Linux Command & Package Discovery
+
+> People switching to Linux shouldn't have to dig through outdated forums.
+> Search what you need → pick your distro → copy the command. Done.
+
+## Core Features
+- **Distro-Aware Commands**: Optimized install and uninstall commands for Arch, Ubuntu, Debian, Fedora, and more.
+- **Categorized Discovery**: Browse by Development Tools, System Utilities, Text Editors, etc.
+- **Side-by-side Comparison**: Compare package alternatives (e.g., nodejs vs. deno).
+- **Quick Start Guides**: Step-by-step Markdown guides for post-install setups.
+- **Global Search**: Command palette (Cmd+K) for instant package navigation.
+- **Modern UI**: Dark mode, responsive design, and polished microinteractions.
+
+## Technology Stack
+- **Framework**: Next.js 16 (App Router + Turbopack)
+- **Language**: TypeScript
+- **Database**: MySQL with Drizzle ORM
+- **Styling**: Tailwind CSS
+- **Components**: Radix UI + Lucide Icons
+- **CLI**: TUI companion for terminal-based discovery
+
+## Sitemap Summary
+- `/`: Homepage with popular categories and hero search.
+- `/category/[slug]`: Package listings for specific categories.
+- `/package/[slug]`: Detail page with distro-tabbed commands.
+- `/distro/[slug]`: All supported packages for a specific distribution.
+- `/tag/[slug]`: Filtered listings by tags (e.g., #cli, #gui).
+- `/guide/[slug]`: Markdown-based educational content.
+- `/compare?a=[slug]&b=[slug]`: Side-by-side comparison mode.
+- `/admin`: Management dashboard for packages, guides, and settings.
+
+## Contribution
+Rosetta is community-driven. All commands are verified to ensure they work on the latest releases of supported distributions.

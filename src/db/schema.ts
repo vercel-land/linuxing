@@ -121,6 +121,8 @@ export const guides = mysqlTable("guides", {
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   distroId: int("distro_id").references(() => distros.id),
   content: text("content").notNull(),
+  seoTitle: varchar("seo_title", { length: 255 }),
+  seoDescription: text("seo_description"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -130,3 +132,10 @@ export const guidesRelations = relations(guides, ({ one }) => ({
     references: [distros.id],
   }),
 }));
+
+export const settings = mysqlTable("settings", {
+  key: varchar("key", { length: 100 }).primaryKey(),
+  value: text("value"),
+  description: text("description"),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow(),
+});

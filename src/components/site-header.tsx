@@ -4,6 +4,7 @@ import { Terminal } from "lucide-react";
 import Link from "next/link";
 import { Search } from "@/components/search";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader() {
   return (
@@ -37,6 +38,7 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-2">
             <Search />
+            <ThemeToggle />
             <Button
               variant="outline"
               size="sm"

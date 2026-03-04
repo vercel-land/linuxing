@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { packages, categories } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const alt = "Rosetta - Linux Commands";
 export const size = {
   width: 1200,

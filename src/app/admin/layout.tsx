@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, Package, Tag, Layers, Globe } from "lucide-react";
+import { LayoutDashboard, Package, Tag, Layers, Globe, Settings, BookOpen } from "lucide-react";
 
 export default function AdminLayout({
   children,
@@ -12,6 +12,8 @@ export default function AdminLayout({
     { name: "Categories", href: "/admin/categories", icon: Layers },
     { name: "Distributions", href: "/admin/distros", icon: Globe },
     { name: "Tags", href: "/admin/tags", icon: Tag },
+    { name: "Guides", href: "/admin/guides", icon: BookOpen },
+    { name: "Settings", href: "/admin/settings", icon: Settings },
   ];
 
   return (

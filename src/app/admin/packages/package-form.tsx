@@ -19,6 +19,7 @@ import { Plus, Trash2, Check } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { createPackage } from "./actions";
 import { useState } from "react";
+import Link from "next/link";
 import {
   Select,
   SelectContent,
@@ -38,12 +39,12 @@ const packageSchema = z.object({
       distroId: z.string().min(1, "Distro is required"),
       packageManager: z.string().min(1, "Manager is required"),
       installCommand: z.string().min(1, "Install command is required"),
-      uninstallCommand: z.string().optional(),
-      notes: z.string().optional(),
-      verified: z.boolean().default(false),
+      uninstallCommand: z.string().optional().or(z.literal("")),
+      notes: z.string().optional().or(z.literal("")),
+      verified: z.boolean(),
     })
   ).min(1, "At least one command is required"),
-  tags: z.string().optional(),
+  tags: z.string().optional().or(z.literal("")),
 });
 
 type PackageFormValues = z.infer<typeof packageSchema>;
@@ -88,7 +89,7 @@ export function PackageForm({ categories, distros }: PackageFormProps) {
       // Convert string IDs to numbers as expected by the action
       const submissionData = {
         ...data,
-        categoryId: data.categoryId ? parseInt(data.categoryId) : undefined,
+        categoryId: data.categoryId && data.categoryId !== "none" ? parseInt(data.categoryId) : undefined,
         commands: data.commands.map(cmd => ({
           ...cmd,
           distroId: parseInt(cmd.distroId),
@@ -171,13 +172,14 @@ export function PackageForm({ categories, distros }: PackageFormProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} defaultValue={field.value || "none"}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                      <SelectItem value="none">Uncategorized</SelectItem>
                       {categories.map((cat) => (
                         <SelectItem key={cat.id} value={cat.id.toString()}>
                           {cat.name}

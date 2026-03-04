@@ -7,12 +7,14 @@ import {
   packageTags,
   tags,
   guides,
+  settings,
 } from "./schema";
 
 const seedData = async () => {
   console.log("Seeding database...");
 
   // Clear existing data
+  await db.delete(settings).execute();
   await db.delete(guides).execute();
   await db.delete(packageTags).execute();
   await db.delete(commands).execute();
@@ -598,6 +600,16 @@ sudo apt install nodejs npm python3 python3-pip
 
   await db.insert(guides).values(guideData).execute();
   console.log(`Inserted ${guideData.length} guides`);
+
+  // Insert default settings
+  const settingsData = [
+    { key: "google_analytics_id", value: "", description: "Google Analytics 4 Measurement ID (e.g. G-XXXXXXX)" },
+    { key: "plausible_domain", value: "", description: "Domain for Plausible Analytics" },
+    { key: "site_name", value: "Rosetta", description: "The name of the site used in titles and SEO" },
+  ];
+
+  await db.insert(settings).values(settingsData).execute();
+  console.log(`Inserted ${settingsData.length} settings`);
 
   console.log("Seeding complete!");
   process.exit(0);
