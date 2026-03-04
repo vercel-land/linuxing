@@ -1,4 +1,4 @@
-import { like, or } from "drizzle-orm";
+import { like, or, sql } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { categories, packages } from "@/db/schema";
@@ -18,7 +18,12 @@ export async function GET(request: NextRequest) {
       slug: packages.slug,
     })
     .from(packages)
-    .where(like(packages.name, `%${query}%`))
+    .where(
+      or(
+        sql`MATCH(${packages.name}, ${packages.description}) AGAINST (${query} IN NATURAL LANGUAGE MODE)`,
+        like(packages.name, `%${query}%`),
+      ),
+    )
     .limit(5);
 
   const categoriesResults = await db

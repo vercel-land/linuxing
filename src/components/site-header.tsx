@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Search } from "@/components/search";
 import { Button } from "@/components/ui/button";
 
-export function Navbar() {
+export function SiteHeader() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">

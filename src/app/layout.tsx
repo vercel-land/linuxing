@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const Operator_Mono = localFont({
@@ -10,9 +10,21 @@ const Operator_Mono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Rosetta - Find Linux Commands",
+  title: {
+    template: "%s | Rosetta",
+    default: "Rosetta - Find Linux Commands",
+  },
   description:
     "Search for any tool, pick your Linux distribution, and copy the install command.",
+  openGraph: {
+    title: "Rosetta - Find Linux Commands",
+    description:
+      "Search for any tool, pick your Linux distribution, and copy the install command.",
+    type: "website",
+    locale: "en_US",
+    url: "https://rosetta.linux",
+    siteName: "Rosetta",
+  },
 };
 
 export default function RootLayout({
@@ -31,9 +43,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <SiteHeader />
           <main className="flex-1 overflow-x-hidden">{children}</main>
-          <Footer />
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
